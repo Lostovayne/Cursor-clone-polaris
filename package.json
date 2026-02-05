@@ -4,10 +4,12 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "dev:all": "concurrently \"npm run dev\" \"npm run convex:dev\" \"npm run inngest:dev\"",
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "ingest:dev": "npx --ignore-scripts=false inngest-cli@latest dev"
+    "convex:dev": "npx convex dev",
+    "inngest:dev": "npx --ignore-scripts=false inngest-cli@latest dev"
   },
   "dependencies": {
     "@ai-sdk/google": "^3.0.19",
@@ -67,6 +69,7 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "concurrently": "^9.2.1",
     "eslint": "^9",
     "eslint-config-next": "16.1.1",
     "tailwindcss": "^4",
