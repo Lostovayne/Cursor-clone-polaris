@@ -46,3 +46,6 @@ pnpm-lock.yaml
 next-env.d.ts
 
 .env.local
+
+# Sentry Config File
+.env.sentry-build-plugin
