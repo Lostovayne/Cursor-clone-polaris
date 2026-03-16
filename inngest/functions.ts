@@ -20,10 +20,10 @@ export const demoGenerate = inngest.createFunction(
       const results = await Promise.all(
         urls.map(async (url) => {
           const result = await firecrawl.scrapeUrl(url, {
-            formats: ["markdown"]
+            formats: ["markdown"],
           });
           return result.success ? result.markdown : null;
-        })
+        }),
       );
       return results.filter(Boolean).join("\n\n");
     });
@@ -36,10 +36,15 @@ export const demoGenerate = inngest.createFunction(
       return await generateText({
         model: google("gemini-3-flash-preview"),
         prompt: finalPrompt,
-        maxOutputTokens: 800
+        experimental_telemetry: {
+          isEnabled: true,
+          recordInputs: true,
+          recordOutputs: true,
+        },
+        maxOutputTokens: 800,
       });
     });
-  }
+  },
 );
 
 export const demoError = inngest.createFunction(
@@ -47,7 +52,9 @@ export const demoError = inngest.createFunction(
   { event: "demo/error" },
   async ({ step }) => {
     await step.run("fail", async () => {
-      throw new Error("Inngest Error: Something went wrong in the Inngest function!");
+      throw new Error(
+        "Inngest Error: Something went wrong in the Inngest function!",
+      );
     });
-  }
+  },
 );
